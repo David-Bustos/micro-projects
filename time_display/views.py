@@ -7,4 +7,4 @@ def current_td(request):
     context = {
         "time": strftime("%Y-%m-%d %H:%M %p", localtime())
     }
-    return render(request,'index.html', context)
+    return render(request,'data_time.html', context)
