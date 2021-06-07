@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'ninja_gold',
     'random_word',
     'time_display',
     'django.contrib.admin',

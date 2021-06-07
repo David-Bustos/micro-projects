@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Money</title>
+<!-- Import Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<!-- Impor Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    {% load static %}
+</head>
+<body>
+
+    <div class="container mt-4">
+        <div class="row">
+<!-- GOLD -->
+            <div class="col">
+                <h5>Your Gold: 
+                    <span class="border border-dark rounded-3 px-2">
+                        {{request.session.gold}}
+                        <img class="pb-2" style="width: 20px" src="{% static 'img/gold.png' %}" />
+                    </span>
+                </h5>
+            </div>
+<!-- RESTART -->
+            <div class="col d-md-flex justify-content-md-end">
+                <a href="{% url 'restart' %}" class="btn btn-dark btn-sm mb-2">Restart Game</a>
+            </div>
+        </div>
+<!-- PLACES -->
+        <div class="row row-cols-md-4 my-3 text-center">
+<!-- FARM -->
+            <div class="col">
+                <div class="card">
+                    <img class="card-img-top p-5" src="{% static 'img/farm.png' %}" />
+                    <div class="card-body">
+                    <h5 class="card-title">Farm</h5>
+                    <p class="card-text">(earns 10-20 golds)</p>
+                    <form action="{% url 'p_money' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="place" value="farm">
+                        <button class="btn btn-warning" type="submit">Find Gold!</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+<!-- CAVE -->
+            <div class="col">
+                <div class="card">
+                    <img class="card-img-top p-3" src="{% static 'img/cave.png' %}" />
+                    <div class="card-body">
+                    <h5 class="card-title">Cave</h5>
+                    <p class="card-text">(earns 5-10 golds)</p>
+                    <form action="{% url 'p_money' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="place" value="cave">
+                        <button class="btn btn-warning" type="submit">Find Gold!</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+<!-- HOUSE -->
+            <div class="col">
+                <div class="card">
+                    <img class="card-img-top p-5" src="{% static 'img/house.png' %}" />
+                    <div class="card-body">
+                    <h5 class="card-title">House</h5>
+                    <p class="card-text">(earns 2-5 golds)</p>
+                    <form action="{% url 'p_money' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="place" value="house">
+                        <button class="btn btn-warning" type="submit">Find Gold!</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+<!-- CASINO -->
+            <div class="col">
+                <div class="card">
+                    <img class="card-img-top p-5" src="{% static 'img/casino.png' %}" />
+                    <div class="card-body">
+                    <h5 class="card-title">Casino</h5>
+                    <p class="card-text">(earns/takes 0-50 golds)</p>
+                    <form action="{% url 'p_money' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="place" value="casino">
+                        <button class="btn btn-warning" type="submit">Find Gold!</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- ACTIVITIES -->
+        <h5>Activities:</h5>
+        {% for activity in request.session.activities %}
+            {% if 'lost' in activity %}
+            <p class="alert alert-danger" role="alert"> <i class="bi bi-arrow-down-square-fill"></i> {{activity}}</p>
+                {% else %}
+            <p class="alert alert-success" role="alert"> <i class="bi bi-arrow-up-square-fill"></i> {{activity}}</p>
+                {% endif %}
+        {% endfor %}
+    </div>
+    
+</body>
+</html>

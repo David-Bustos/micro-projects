@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    path('ninja_gold', include('ninja_gold.urls')),
     path('random_word', include('random_word.urls')),
     path('time_display', include('time_display.urls')),
     #path('admin/', admin.site.urls),
